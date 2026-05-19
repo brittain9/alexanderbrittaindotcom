@@ -7,12 +7,12 @@
 <meta name="description" content="Software engineer at the U.S. Department of the Treasury.">
 <link rel="canonical" href="https://alexanderbrittain.com">
 
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1426" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Alexander Brittain">
@@ -31,152 +31,97 @@
 <style>
   :root {
     color-scheme: light dark;
-    --bg: #ffffff;
-    --fg: #18181b;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #09090b;
+    --strong: #18181b;
     --muted: #71717a;
-    --accent: #c2410c;
-    --card: #fafafa;
+    --soft: #a1a1aa;
     --border: #e4e4e7;
-    --portrait-shadow: 0 2px 5px 0 rgba(0,0,0,0.14), 0 2px 10px 0 rgba(0,0,0,0.10);
+    --border-soft: #ececef;
+    --border-strong: #d4d4d8;
+    --accent: #5b5bd6;
+    --accent-soft: #ecebfb;
+    --badge-bg: #f4f4f5;
+    --badge-fg: #52525b;
+    --shadow: 0 1px 2px rgba(16,16,28,0.04), 0 4px 14px rgba(16,16,28,0.04);
+    --shadow-lift: 0 1px 2px rgba(16,16,28,0.06), 0 8px 24px rgba(16,16,28,0.07);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #0a0a0b;
-      --fg: #fafafa;
-      --muted: #a1a1aa;
-      --accent: #fb923c;
-      --card: #161618;
-      --border: #2a2a2e;
-      --portrait-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 4px 18px rgba(0,0,0,0.55);
+      --bg: #0b1426;
+      --card: #11233d;
+      --ink: #eef2f8;
+      --strong: #f6f8fc;
+      --muted: #8b9bb5;
+      --soft: #5d6d87;
+      --border: #1e3050;
+      --border-soft: #18283f;
+      --border-strong: #2a4267;
+      --accent: #818cf8;
+      --accent-soft: rgba(129,140,248,0.16);
+      --badge-bg: #16263f;
+      --badge-fg: #b8c4d6;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.35);
+      --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
     }
   }
   [data-theme="dark"] {
-    --bg: #0a0a0b;
-    --fg: #fafafa;
-    --muted: #a1a1aa;
-    --accent: #fb923c;
-    --card: #161618;
-    --border: #2a2a2e;
-    --portrait-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 4px 18px rgba(0,0,0,0.55);
+    --bg: #0b1426;
+    --card: #11233d;
+    --ink: #eef2f8;
+    --strong: #f6f8fc;
+    --muted: #8b9bb5;
+    --soft: #5d6d87;
+    --border: #1e3050;
+    --border-soft: #18283f;
+    --border-strong: #2a4267;
+    --accent: #818cf8;
+    --accent-soft: rgba(129,140,248,0.16);
+    --badge-bg: #16263f;
+    --badge-fg: #b8c4d6;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.35);
+    --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
   }
   [data-theme="light"] {
-    --bg: #ffffff;
-    --fg: #18181b;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ink: #09090b;
+    --strong: #18181b;
     --muted: #71717a;
-    --accent: #c2410c;
-    --card: #fafafa;
+    --soft: #a1a1aa;
     --border: #e4e4e7;
-    --portrait-shadow: 0 2px 5px 0 rgba(0,0,0,0.14), 0 2px 10px 0 rgba(0,0,0,0.10);
+    --border-soft: #ececef;
+    --border-strong: #d4d4d8;
+    --accent: #5b5bd6;
+    --accent-soft: #ecebfb;
+    --badge-bg: #f4f4f5;
+    --badge-fg: #52525b;
+    --shadow: 0 1px 2px rgba(16,16,28,0.04), 0 4px 14px rgba(16,16,28,0.04);
+    --shadow-lift: 0 1px 2px rgba(16,16,28,0.06), 0 8px 24px rgba(16,16,28,0.07);
   }
+
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--fg);
     background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14.5px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
   }
-  main { max-width: 720px; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
-  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
-  a:hover { border-bottom-color: var(--accent); }
-  header.intro { display: flex; gap: 1.75rem; align-items: flex-start; margin-bottom: 3rem; }
-  header.intro .text { flex: 1; }
-  header.intro picture { flex-shrink: 0; display: block; }
-  header.intro .portrait {
-    width: 112px; height: 112px;
-    border-radius: 6px;
-    flex-shrink: 0;
-    overflow: hidden;
-    object-fit: cover;
-    background: var(--card);
-    display: block;
-    box-shadow: var(--portrait-shadow);
-    transition: box-shadow 0.18s ease;
-  }
-  h1 {
-    font-size: 1.875rem;
-    line-height: 1.15;
-    margin: 0 0 0.3rem;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-  }
-  .role { color: var(--muted); margin: 0 0 1rem; font-size: 0.95rem; }
-  .bio { margin: 0; max-width: 38em; }
-  h2 {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin: 3rem 0 1.25rem;
-    font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
-  }
-  .work { display: grid; gap: 0.85rem; }
-  .work-card {
-    border: 1px solid var(--border);
-    background: var(--card);
-    padding: 1.25rem 1.5rem;
-    border-radius: 8px;
-    transition: border-color 0.15s;
-  }
-  .work-card:hover { border-color: var(--accent); }
-  .work-card h3 { margin: 0 0 0.3rem; font-size: 1rem; font-weight: 600; }
-  .work-card h3 a { color: var(--fg); }
-  .work-card h3 a:hover { color: var(--accent); }
-  .work-card .stack {
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-family: ui-monospace, "SF Mono", monospace;
-    margin: 0 0 0.6rem;
-  }
-  .work-card p { margin: 0 0 0.6rem; }
-  .work-card .links { font-size: 0.85rem; color: var(--muted); margin-bottom: 0; }
-  .work-card .links a {
-    font-family: ui-monospace, "SF Mono", monospace;
-    font-size: 0.82rem;
-    color: var(--accent);
-  }
-  .exp { display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
-  .exp .date {
-    color: var(--muted);
-    font-size: 0.82rem;
-    font-variant-numeric: tabular-nums;
-    font-family: ui-monospace, "SF Mono", monospace;
-    padding-top: 0.15rem;
-  }
-  .exp .title { font-weight: 600; margin: 0 0 0.25rem; }
-  .exp .org { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.5rem; }
-  .exp ul { margin: 0.4rem 0 0; padding-left: 1.1rem; }
-  .exp li { margin-bottom: 0.25rem; }
-  .skills-row { display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem; margin-bottom: 0.5rem; }
-  .skills-row .label {
-    color: var(--muted);
-    font-size: 0.82rem;
-    font-family: ui-monospace, "SF Mono", monospace;
-    padding-top: 0.05rem;
-  }
-  footer.contact {
-    margin-top: 3.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-  footer.contact a {
-    color: var(--fg);
-    border-bottom: 1px solid var(--border);
-  }
-  footer.contact a:hover { border-color: var(--accent); color: var(--accent); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
   .theme-toggle {
     position: fixed;
     top: 1rem; right: 1rem;
     width: 36px; height: 36px;
     border: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--card);
     color: var(--muted);
     border-radius: 6px;
     cursor: pointer;
@@ -201,19 +146,191 @@
   [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   [data-theme="light"] .theme-toggle .icon-sun { display: none; }
   [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+  main { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
+
+  /* Hero */
+  header.intro {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  header.intro .portrait {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 0 0 1px var(--border), 0 4px 14px rgba(16,16,28,0.06);
+  }
+  h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.15rem; letter-spacing: -0.015em; }
+  .role { color: var(--muted); margin: 0; font-size: 0.9rem; }
+  .role .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 0.4rem;
+    vertical-align: 0.1em;
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
+  }
+  .bio {
+    margin: 0 0 2.5rem;
+    color: var(--strong);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    max-width: 38em;
+  }
+
+  /* Section header */
+  h2 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 2.5rem 0 1rem;
+  }
+
+  /* Work cards */
+  .work { display: grid; gap: 0.65rem; }
+  .work-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+  }
+  .work-card:hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
+    border-color: var(--border-strong);
+  }
+  .work-card h3 {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .work-card h3 a { color: var(--ink); }
+  .work-card h3 a:hover { color: var(--accent); text-decoration: none; }
+  .work-card h3 .ext {
+    display: inline-block;
+    color: var(--soft);
+    font-weight: 400;
+    margin-left: 0.3rem;
+    transition: color 0.18s, transform 0.18s;
+  }
+  .work-card:hover h3 .ext { color: var(--accent); transform: translate(2px, -2px); }
+  .badges { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0 0 0.7rem; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--badge-bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    font-size: 0.72rem;
+    color: var(--badge-fg);
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+  .work-card p { margin: 0 0 0.6rem; color: var(--strong); font-size: 0.9rem; line-height: 1.55; }
+  .work-card .links {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+    display: flex; gap: 0.85rem;
+  }
+  .work-card .links a {
+    display: inline-flex; align-items: center; gap: 0.2rem;
+    color: var(--muted);
+  }
+  .work-card .links a:hover { color: var(--accent); text-decoration: none; }
+  .work-card .links a::after { content: "↗"; font-size: 0.85em; opacity: 0.7; }
+
+  /* Timeline */
+  .timeline { margin: 0; padding: 0; list-style: none; }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 1.5rem 1.75rem;
+    border-left: 1px solid var(--border);
+    margin-left: 0.4rem;
+  }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 4px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--soft);
+    box-sizing: border-box;
+  }
+  .timeline-item.current::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .timeline-item .date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 0.2rem;
+    font-weight: 500;
+  }
+  .timeline-item .title { font-weight: 600; margin: 0 0 0.05rem; font-size: 0.95rem; }
+  .timeline-item .org { color: var(--muted); margin: 0 0 0.4rem; font-size: 0.85rem; }
+  .timeline-item ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--strong); font-size: 0.88rem; }
+  .timeline-item li { margin-bottom: 0.2rem; }
+  .timeline-item li::marker { color: var(--soft); }
+
+  /* Skills */
+  .skill-groups { display: grid; gap: 0.85rem; }
+  .skill-group {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .skill-group .key {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 500;
+    padding-top: 0.2rem;
+  }
+  .skill-group .pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+
+  /* Footer */
+  footer.contact {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+  }
+  footer.contact a {
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  footer.contact a:hover { color: var(--accent); text-decoration: none; }
+  footer.contact a::after { content: "↗"; opacity: 0.55; font-size: 0.9em; }
+  footer.contact a[href^="mailto:"]::after { content: ""; }
+
   @media (max-width: 560px) {
-    main { padding: 2.5rem 1.25rem 4rem; }
-    header.intro { flex-direction: column-reverse; align-items: flex-start; gap: 1.25rem; }
-    .exp, .skills-row { grid-template-columns: 1fr; gap: 0.25rem; }
-    h1 { font-size: 1.5rem; }
+    main { padding: 3rem 1.25rem 4rem; }
+    .skill-group { grid-template-columns: 1fr; gap: 0.3rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       transition-duration: 0.01ms !important;
       animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      scroll-behavior: auto !important;
     }
+    .work-card:hover { transform: none; }
   }
 </style>
 </head>
@@ -224,96 +341,104 @@
 </button>
 <main>
   <header class="intro">
-    <div class="text">
-      <h1>Alexander Brittain</h1>
-      <p class="role">Software Engineer · U.S. Department of the Treasury</p>
-      <p class="bio">Previously at PoolCorp, modernizing legacy HR and warehouse systems with .NET, Blazor, and Azure.</p>
-    </div>
     <picture>
       <source type="image/avif" srcset="portrait-112.avif 1x, portrait-224.avif 2x, portrait-336.avif 3x">
       <source type="image/webp" srcset="portrait-112.webp 1x, portrait-224.webp 2x, portrait-336.webp 3x">
-      <img src="portrait-112.jpg"
-           srcset="portrait-112.jpg 1x, portrait-224.jpg 2x, portrait-336.jpg 3x"
-           width="112" height="112"
-           alt="Alexander Brittain"
-           class="portrait"
-           fetchpriority="high"
-           decoding="async">
+      <img src="portrait-112.jpg" srcset="portrait-112.jpg 1x, portrait-224.jpg 2x, portrait-336.jpg 3x"
+           width="64" height="64" alt="Alexander Brittain" class="portrait" fetchpriority="high" decoding="async">
     </picture>
+    <div>
+      <h1>Alexander Brittain</h1>
+      <p class="role"><span class="dot"></span>Software Engineer at U.S. Dept. of the Treasury</p>
+    </div>
   </header>
 
+  <p class="bio">Previously at PoolCorp, modernizing legacy HR and warehouse systems with .NET, Blazor, and Azure.</p>
+
   <section>
-    <h2>// selected work</h2>
+    <h2>Selected work</h2>
     <div class="work">
       <article class="work-card">
-        <h3><a href="https://community.obsidian.md/plugins/local-dictation">Local Dictation for Obsidian</a></h3>
-        <p class="stack">TypeScript · Rust · Whisper · Cohere · Silero VAD · CUDA · Metal</p>
+        <h3><a href="https://community.obsidian.md/plugins/local-dictation">Local Dictation for Obsidian<span class="ext">↗</span></a></h3>
+        <div class="badges">
+          <span class="badge">TypeScript</span><span class="badge">Rust</span><span class="badge">Whisper</span><span class="badge">Cohere</span><span class="badge">Silero VAD</span><span class="badge">CUDA</span><span class="badge">Metal</span>
+        </div>
         <p>Privacy-first dictation plugin for Obsidian. TypeScript plugin shell drives a native Rust sidecar that runs Whisper and Cohere Transcribe locally, with Silero VAD for speech segmentation and optional Ollama post-processing. Hardware-accelerated on Metal (macOS) and CUDA (Linux/Windows). No cloud, no telemetry, no account.</p>
-        <p class="links"><a href="https://community.obsidian.md/plugins/local-dictation">obsidian →</a> &nbsp; <a href="https://github.com/brittain9/local-dictation-obsidian-plugin">github →</a></p>
+        <p class="links"><a href="https://community.obsidian.md/plugins/local-dictation">Obsidian</a><a href="https://github.com/brittain9/local-dictation-obsidian-plugin">GitHub</a></p>
       </article>
       <article class="work-card">
-        <h3><a href="https://quiz.alexanderbrittain.com">Wiki Quiz</a></h3>
-        <p class="stack">.NET 9 · React · Azure Cosmos DB · OpenAI · Pulumi IaC</p>
+        <h3><a href="https://quiz.alexanderbrittain.com">Wiki Quiz<span class="ext">↗</span></a></h3>
+        <div class="badges">
+          <span class="badge">.NET 9</span><span class="badge">React</span><span class="badge">Azure Cosmos DB</span><span class="badge">OpenAI</span><span class="badge">Pulumi IaC</span>
+        </div>
         <p>Scale-to-zero Azure architecture that eliminates idle hosting costs. Integrates OpenAI with Microsoft Semantic Kernel to generate quizzes from any Wikipedia article. React/TypeScript frontend with nine-language i18n and Google OAuth.</p>
-        <p class="links"><a href="https://quiz.alexanderbrittain.com">live →</a> &nbsp; <a href="https://github.com/brittain9">github →</a></p>
+        <p class="links"><a href="https://quiz.alexanderbrittain.com">Live</a><a href="https://github.com/brittain9">GitHub</a></p>
       </article>
     </div>
   </section>
 
   <section>
-    <h2>// experience</h2>
-    <div class="exp">
-      <span class="date">2026 —</span>
-      <div>
+    <h2>Experience &amp; education</h2>
+    <ul class="timeline">
+      <li class="timeline-item current">
+        <p class="date">2026 — Present</p>
         <p class="title">Software Engineer</p>
         <p class="org">U.S. Department of the Treasury</p>
-      </div>
-    </div>
-    <div class="exp">
-      <span class="date">2025 — 2026</span>
-      <div>
+      </li>
+      <li class="timeline-item">
+        <p class="date">2025 — 2026</p>
         <p class="title">Junior Software Engineer</p>
         <p class="org">PoolCorp</p>
         <ul>
           <li>Led Blazor WebAssembly + Azure APIM modernization of a warehouse queue system used by 450+ sales centers.</li>
           <li>Built a CQRS/MediatR Web API that automated a critical data import, recouping 15 hours/week for four engineers.</li>
-          <li>Sole maintainer of the legacy HR ecosystem — OMS, PortalSearch, and the Workday → HR sync pipeline on Azure Functions. Complex feature work, edge-case resolution, and SQL tuning.</li>
+          <li>Sole maintainer of the legacy HR ecosystem — OMS, PortalSearch, and the Workday → HR sync pipeline on Azure Functions.</li>
           <li>Shipped a secure Entity Framework admin dashboard that reduced HR data correction time by 80%.</li>
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>// education &amp; credentials</h2>
-    <div class="exp">
-      <span class="date">2024</span>
-      <div>
+      </li>
+      <li class="timeline-item">
+        <p class="date">2024</p>
         <p class="title">BBA, Management Information Systems</p>
         <p class="org">The University of Texas at Austin</p>
-      </div>
-    </div>
-    <div class="exp">
-      <span class="date"></span>
-      <div>
-        <p>Microsoft Azure Fundamentals (AZ-900) · Eagle Scout</p>
-      </div>
-    </div>
+      </li>
+      <li class="timeline-item">
+        <div class="badges" style="margin:0;">
+          <span class="badge">AZ-900</span><span class="badge">Eagle Scout</span>
+        </div>
+      </li>
+    </ul>
   </section>
 
   <section>
-    <h2>// skills</h2>
-    <div class="skills-row"><span class="label">languages</span><div>C#, Python, TypeScript / JavaScript, SQL</div></div>
-    <div class="skills-row"><span class="label">frameworks</span><div>.NET, ASP.NET Core, Blazor, React, Entity Framework</div></div>
-    <div class="skills-row"><span class="label">cloud</span><div>Azure (Functions, API Management, Container Apps), Docker, Pulumi IaC, CI/CD, Cloudflare</div></div>
-    <div class="skills-row"><span class="label">data</span><div>SQL Server, PostgreSQL, Cosmos DB</div></div>
-    <div class="skills-row"><span class="label">tools</span><div>Claude Code, Codex, MCP, Visual Studio</div></div>
+    <h2>Skills</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <span class="key">Languages</span>
+        <div class="pills"><span class="badge">C#</span><span class="badge">Python</span><span class="badge">TypeScript</span><span class="badge">JavaScript</span><span class="badge">SQL</span></div>
+      </div>
+      <div class="skill-group">
+        <span class="key">Frameworks</span>
+        <div class="pills"><span class="badge">.NET</span><span class="badge">ASP.NET Core</span><span class="badge">Blazor</span><span class="badge">React</span><span class="badge">Entity Framework</span></div>
+      </div>
+      <div class="skill-group">
+        <span class="key">Cloud</span>
+        <div class="pills"><span class="badge">Azure Functions</span><span class="badge">API Management</span><span class="badge">Container Apps</span><span class="badge">Docker</span><span class="badge">Pulumi IaC</span><span class="badge">CI/CD</span><span class="badge">Cloudflare</span></div>
+      </div>
+      <div class="skill-group">
+        <span class="key">Data</span>
+        <div class="pills"><span class="badge">SQL Server</span><span class="badge">PostgreSQL</span><span class="badge">Cosmos DB</span></div>
+      </div>
+      <div class="skill-group">
+        <span class="key">Tools</span>
+        <div class="pills"><span class="badge">Claude Code</span><span class="badge">Codex</span><span class="badge">MCP</span><span class="badge">Visual Studio</span></div>
+      </div>
+    </div>
   </section>
 
   <footer class="contact">
     <a href="mailto:alexbrittain9@gmail.com">alexbrittain9@gmail.com</a>
-    &nbsp; · &nbsp; <a href="https://github.com/brittain9">github</a>
-    &nbsp; · &nbsp; <a href="https://linkedin.com/in/alexanderbrittain">linkedin</a>
+    <a href="https://github.com/brittain9">GitHub</a>
+    <a href="https://linkedin.com/in/alexanderbrittain">LinkedIn</a>
   </footer>
 </main>
 <script>
