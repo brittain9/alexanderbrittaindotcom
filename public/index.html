@@ -8,10 +8,10 @@
 <link rel="canonical" href="https://alexanderbrittain.com">
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1426" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="profile">
@@ -22,33 +22,38 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Alexander Brittain — Software Engineer">
+<meta property="profile:first_name" content="Alexander">
+<meta property="profile:last_name" content="Brittain">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preload" as="image" type="image/avif" fetchpriority="high"
       imagesrcset="portrait-112.avif 1x, portrait-224.avif 2x, portrait-336.avif 3x">
 
-<script>(function(){var s=localStorage.getItem('theme');if(s==='dark'||s==='light')document.documentElement.dataset.theme=s;})();</script>
+<script>(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light')document.documentElement.dataset.theme=s;}catch(e){}})();</script>
 <style>
+  /* tokens — light defaults (warm paper) */
   :root {
     color-scheme: light dark;
-    --bg: #fafafa;
+    --bg: #faf7f2;
     --card: #ffffff;
-    --ink: #09090b;
-    --strong: #18181b;
-    --muted: #71717a;
-    --soft: #a1a1aa;
-    --border: #e4e4e7;
-    --border-soft: #ececef;
-    --border-strong: #d4d4d8;
+    --ink: #1c1916;
+    --strong: #0f0d0b;
+    --muted: #6e655d;
+    --soft: #a39c93;
+    --border: #ebe5db;
+    --border-soft: #f1ece4;
+    --border-strong: #d8cfc1;
     --accent: #5b5bd6;
     --accent-soft: #ecebfb;
-    --badge-bg: #f4f4f5;
-    --badge-fg: #52525b;
-    --shadow: 0 1px 2px rgba(16,16,28,0.04), 0 4px 14px rgba(16,16,28,0.04);
-    --shadow-lift: 0 1px 2px rgba(16,16,28,0.06), 0 8px 24px rgba(16,16,28,0.07);
+    --badge-bg: #f3eee5;
+    --badge-fg: #565049;
+    --shadow: 0 1px 2px rgba(40,28,12,0.04), 0 4px 14px rgba(40,28,12,0.05);
+    --shadow-lift: 0 1px 2px rgba(40,28,12,0.06), 0 8px 24px rgba(40,28,12,0.08);
   }
+
+  /* dark overrides — applied when OS prefers dark and the user has not forced light */
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --bg: #0b1426;
       --card: #11233d;
       --ink: #eef2f8;
@@ -66,7 +71,9 @@
       --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
     }
   }
-  [data-theme="dark"] {
+
+  /* explicit dark override regardless of OS */
+  :root[data-theme="dark"] {
     --bg: #0b1426;
     --card: #11233d;
     --ink: #eef2f8;
@@ -83,35 +90,17 @@
     --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.35);
     --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
   }
-  [data-theme="light"] {
-    --bg: #fafafa;
-    --card: #ffffff;
-    --ink: #09090b;
-    --strong: #18181b;
-    --muted: #71717a;
-    --soft: #a1a1aa;
-    --border: #e4e4e7;
-    --border-soft: #ececef;
-    --border-strong: #d4d4d8;
-    --accent: #5b5bd6;
-    --accent-soft: #ecebfb;
-    --badge-bg: #f4f4f5;
-    --badge-fg: #52525b;
-    --shadow: 0 1px 2px rgba(16,16,28,0.04), 0 4px 14px rgba(16,16,28,0.04);
-    --shadow-lift: 0 1px 2px rgba(16,16,28,0.06), 0 8px 24px rgba(16,16,28,0.07);
-  }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
     font-size: 14.5px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: "cv11", "ss01";
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -139,8 +128,8 @@
   .theme-toggle svg { display: block; }
   .theme-toggle .icon-sun { display: none; }
   @media (prefers-color-scheme: dark) {
-    .theme-toggle .icon-sun { display: block; }
-    .theme-toggle .icon-moon { display: none; }
+    :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
+    :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
   }
   [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
@@ -149,7 +138,7 @@
 
   main { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
 
-  /* Hero */
+  /* hero */
   header.intro {
     display: flex;
     gap: 1.25rem;
@@ -161,7 +150,7 @@
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    box-shadow: 0 0 0 1px var(--border), 0 4px 14px rgba(16,16,28,0.06);
+    box-shadow: 0 0 0 1px var(--border), 0 4px 14px rgba(40,28,12,0.06);
   }
   h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.15rem; letter-spacing: -0.015em; }
   .role { color: var(--muted); margin: 0; font-size: 0.9rem; }
@@ -182,7 +171,7 @@
     max-width: 38em;
   }
 
-  /* Section header */
+  /* section header */
   h2 {
     font-size: 0.72rem;
     font-weight: 600;
@@ -192,7 +181,7 @@
     margin: 2.5rem 0 1rem;
   }
 
-  /* Work cards */
+  /* work cards */
   .work { display: grid; gap: 0.65rem; }
   .work-card {
     background: var(--card);
@@ -248,7 +237,7 @@
   .work-card .links a:hover { color: var(--accent); text-decoration: none; }
   .work-card .links a::after { content: "↗"; font-size: 0.85em; opacity: 0.7; }
 
-  /* Timeline */
+  /* timeline */
   .timeline { margin: 0; padding: 0; list-style: none; }
   .timeline-item {
     position: relative;
@@ -279,13 +268,13 @@
     margin: 0 0 0.2rem;
     font-weight: 500;
   }
-  .timeline-item .title { font-weight: 600; margin: 0 0 0.05rem; font-size: 0.95rem; }
+  .timeline-item h3.title { font-weight: 600; margin: 0 0 0.05rem; font-size: 0.95rem; color: var(--ink); }
   .timeline-item .org { color: var(--muted); margin: 0 0 0.4rem; font-size: 0.85rem; }
   .timeline-item ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--strong); font-size: 0.88rem; }
   .timeline-item li { margin-bottom: 0.2rem; }
   .timeline-item li::marker { color: var(--soft); }
 
-  /* Skills */
+  /* skills */
   .skill-groups { display: grid; gap: 0.85rem; }
   .skill-group {
     display: grid;
@@ -301,7 +290,7 @@
   }
   .skill-group .pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 
-  /* Footer */
+  /* footer */
   footer.contact {
     margin-top: 3rem;
     padding-top: 1.5rem;
@@ -382,12 +371,12 @@
     <ul class="timeline">
       <li class="timeline-item current">
         <p class="date">2026 — Present</p>
-        <p class="title">Software Engineer</p>
+        <h3 class="title">Software Engineer</h3>
         <p class="org">U.S. Department of the Treasury</p>
       </li>
       <li class="timeline-item">
         <p class="date">2025 — 2026</p>
-        <p class="title">Junior Software Engineer</p>
+        <h3 class="title">Junior Software Engineer</h3>
         <p class="org">PoolCorp</p>
         <ul>
           <li>Led Blazor WebAssembly + Azure APIM modernization of a warehouse queue system used by 450+ sales centers.</li>
@@ -398,7 +387,7 @@
       </li>
       <li class="timeline-item">
         <p class="date">2024</p>
-        <p class="title">BBA, Management Information Systems</p>
+        <h3 class="title">BBA, Management Information Systems</h3>
         <p class="org">The University of Texas at Austin</p>
       </li>
       <li class="timeline-item">
@@ -449,7 +438,7 @@
   function sync(){btn.setAttribute('aria-pressed',String(isDark()));}
   sync();
   mq.addEventListener('change',sync);
-  btn.addEventListener('click',function(){var n=isDark()?'light':'dark';document.documentElement.dataset.theme=n;localStorage.setItem('theme',n);sync();});
+  btn.addEventListener('click',function(){var n=isDark()?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('theme',n);}catch(e){}sync();});
 })();
 </script>
 
@@ -463,7 +452,7 @@
   "jobTitle": "Software Engineer",
   "worksFor": { "@type": "Organization", "name": "U.S. Department of the Treasury" },
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "The University of Texas at Austin" },
-  "email": "mailto:alexbrittain9@gmail.com",
+  "email": "alexbrittain9@gmail.com",
   "sameAs": [
     "https://github.com/brittain9",
     "https://linkedin.com/in/alexanderbrittain"
