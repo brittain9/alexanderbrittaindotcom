@@ -1,0 +1,45 @@
+/* A quieter hierarchy for the refined Workbench direction. */
+.technical{color-scheme:dark}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme]) .technical{color-scheme:light;--bg:#e9eddf;--ink:#25372e;--muted:#536454;--accent:#345d3e;--line:#bcc8b6;--panel:#f0f2e8;--glow:#d3ddbd}
+  :root:not([data-theme]) .technical .demo{background:#f0f2e8;box-shadow:10px 10px 0 #263b2410}
+  :root:not([data-theme]) .technical .hero{background-image:radial-gradient(#69806038 .8px,transparent .8px)}
+}
+:root[data-theme=light] .technical{color-scheme:light;--bg:#e9eddf;--ink:#25372e;--muted:#536454;--accent:#345d3e;--line:#bcc8b6;--panel:#f0f2e8;--glow:#d3ddbd}
+:root[data-theme=light] .technical .demo{background:#f0f2e8;box-shadow:10px 10px 0 #263b2410}
+:root[data-theme=light] .technical .hero{background-image:radial-gradient(#69806038 .8px,transparent .8px)}
+:root[data-theme=light] .technical .button:hover{background:#24492e;color:#f0f2e8}
+.theme-toggle{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);padding:0;cursor:pointer}
+.theme-toggle svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .icon-moon{display:none}
+:root[data-theme=light] .theme-toggle .icon-sun{display:none}
+:root[data-theme=light] .theme-toggle .icon-moon{display:block}
+@media (prefers-color-scheme: light){:root:not([data-theme]) .theme-toggle .icon-sun{display:none}:root:not([data-theme]) .theme-toggle .icon-moon{display:block}}
+.theme-toggle:hover{border-color:var(--accent)}
+.technical header nav a{display:inline-flex;align-items:center;min-height:34px}
+.technical .brand{display:inline-flex;align-items:center;min-width:0;white-space:nowrap}
+.technical .brand .brand-name{border:0;padding:0;color:var(--ink);margin-right:0}
+.product-follow-on{margin-top:15px}.stack-label{margin-bottom:15px}.stack-row strong{font-weight:500;color:var(--ink)}.product-note{font-size:13px;line-height:1.8;margin:18px 0 0}.product-note+.product-note{margin-top:11px}
+@media(max-width:520px){.technical header{flex-wrap:nowrap;gap:14px;padding-block:20px}.technical header nav{width:auto;justify-content:flex-end;gap:14px;flex-shrink:0}.technical header nav a:first-child{display:inline-flex}}
+.technical .hero h1{font-size:clamp(52px,5.7vw,76px);font-weight:550;letter-spacing:-.055em;line-height:1.08}
+.technical .hero{padding-block:48px;grid-template-columns:1.35fr 1fr}
+.technical .hero .intro{max-width:490px;line-height:1.75}
+.technical .demo .note{min-height:215px}
+.technical .demo .sample{font-size:24px;line-height:1.5;letter-spacing:-.02em}
+.technical .demo .result{font-size:12px;max-width:300px}
+.technical .demo .disclaimer{max-width:320px}
+.technical .project{gap:70px;grid-template-columns:1.2fr 1fr}
+.technical .project h3{font-size:48px}
+.technical .work-row p,.working-copy p{line-height:1.85}
+.follow-on,.working-copy p+p{margin-top:15px}
+.technical .tag{letter-spacing:.015em}
+.technical .approach h2{font-size:28px;line-height:1.2}
+.working-copy{font-size:15px;max-width:640px}
+.technical .contact h2{font-size:48px}
+.technical .contact>p{max-width:590px}
+.stack-row{gap:15px}.stack-row span{text-align:right}
+@media(max-width:800px){.technical .hero,.technical .project{grid-template-columns:1fr;gap:35px}.technical .hero h1{font-size:60px}.technical .hero{padding:32px 25px}.technical .demo{max-width:520px}.technical .project h3{font-size:43px}}
+@media(max-width:420px){.technical .hero{padding:28px 18px}.technical .hero h1{font-size:43px}.technical .demo{padding:18px}.technical .demo .sample{font-size:22px}.technical .demo-top{font-size:10px}.technical .hero .actions{gap:15px}.technical .hero .intro{font-size:15px}}
+@media(max-width:480px){.technical .section-head .label{display:none}.stack-row{flex-direction:column;align-items:flex-start;gap:4px}.stack-row span{text-align:left}}
+@media(max-width:360px){.technical header{gap:12px}.technical header nav{gap:10px}.technical .brand-name{display:none}}
+@media(max-width:480px){.technical .foot{align-items:flex-start;flex-direction:column;gap:5px;padding:24px 0 30px;text-align:left}}

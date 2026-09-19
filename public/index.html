@@ -1,463 +1,163 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alexander Brittain</title>
-<meta name="description" content="Software engineer at the U.S. Department of the Treasury.">
-<link rel="canonical" href="https://alexanderbrittain.com">
-
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b1426" media="(prefers-color-scheme: dark)">
-
-<meta property="og:type" content="profile">
-<meta property="og:title" content="Alexander Brittain">
-<meta property="og:description" content="Software engineer at the U.S. Department of the Treasury.">
-<meta property="og:url" content="https://alexanderbrittain.com">
-<meta property="og:image" content="https://alexanderbrittain.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Alexander Brittain — Software Engineer">
-<meta property="profile:first_name" content="Alexander">
-<meta property="profile:last_name" content="Brittain">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="preload" as="image" type="image/avif" fetchpriority="high"
-      imagesrcset="portrait-112.avif 1x, portrait-224.avif 2x, portrait-336.avif 3x">
-
-<script>(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light')document.documentElement.dataset.theme=s;}catch(e){}})();</script>
-<style>
-  /* tokens — light defaults (warm paper) */
-  :root {
-    color-scheme: light dark;
-    --bg: #faf7f2;
-    --card: #ffffff;
-    --ink: #1c1916;
-    --strong: #0f0d0b;
-    --muted: #6e655d;
-    --soft: #a39c93;
-    --border: #ebe5db;
-    --border-soft: #f1ece4;
-    --border-strong: #d8cfc1;
-    --accent: #5b5bd6;
-    --accent-soft: #ecebfb;
-    --badge-bg: #f3eee5;
-    --badge-fg: #565049;
-    --shadow: 0 1px 2px rgba(40,28,12,0.04), 0 4px 14px rgba(40,28,12,0.05);
-    --shadow-lift: 0 1px 2px rgba(40,28,12,0.06), 0 8px 24px rgba(40,28,12,0.08);
-  }
-
-  /* dark overrides — applied when OS prefers dark and the user has not forced light */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0b1426;
-      --card: #11233d;
-      --ink: #eef2f8;
-      --strong: #f6f8fc;
-      --muted: #8b9bb5;
-      --soft: #5d6d87;
-      --border: #1e3050;
-      --border-soft: #18283f;
-      --border-strong: #2a4267;
-      --accent: #818cf8;
-      --accent-soft: rgba(129,140,248,0.16);
-      --badge-bg: #16263f;
-      --badge-fg: #b8c4d6;
-      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.35);
-      --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
-    }
-  }
-
-  /* explicit dark override regardless of OS */
-  :root[data-theme="dark"] {
-    --bg: #0b1426;
-    --card: #11233d;
-    --ink: #eef2f8;
-    --strong: #f6f8fc;
-    --muted: #8b9bb5;
-    --soft: #5d6d87;
-    --border: #1e3050;
-    --border-soft: #18283f;
-    --border-strong: #2a4267;
-    --accent: #818cf8;
-    --accent-soft: rgba(129,140,248,0.16);
-    --badge-bg: #16263f;
-    --badge-fg: #b8c4d6;
-    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 4px 14px rgba(0,0,0,0.35);
-    --shadow-lift: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.5);
-  }
-
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
-    font-size: 14.5px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-  .theme-toggle {
-    position: fixed;
-    top: 1rem; right: 1rem;
-    width: 36px; height: 36px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--muted);
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: border-color 0.15s, color 0.15s, background 0.15s;
-    z-index: 10;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .theme-toggle svg { display: block; }
-  .theme-toggle .icon-sun { display: none; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
-    :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
-  }
-  [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-  [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-  [data-theme="light"] .theme-toggle .icon-sun { display: none; }
-  [data-theme="light"] .theme-toggle .icon-moon { display: block; }
-
-  main { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
-
-  /* hero */
-  header.intro {
-    display: flex;
-    gap: 1.25rem;
-    align-items: center;
-    margin-bottom: 2.5rem;
-  }
-  header.intro .portrait {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    box-shadow: 0 0 0 1px var(--border), 0 4px 14px rgba(40,28,12,0.06);
-  }
-  h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.15rem; letter-spacing: -0.015em; }
-  .role { color: var(--muted); margin: 0; font-size: 0.9rem; }
-  .role .dot {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #22c55e;
-    margin-right: 0.4rem;
-    vertical-align: 0.1em;
-    box-shadow: 0 0 0 3px rgba(34,197,94,0.18);
-  }
-  .bio {
-    margin: 0 0 2.5rem;
-    color: var(--strong);
-    font-size: 0.96rem;
-    line-height: 1.6;
-    max-width: 38em;
-  }
-
-  /* section header */
-  h2 {
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    margin: 2.5rem 0 1rem;
-  }
-
-  /* work cards */
-  .work { display: grid; gap: 0.65rem; }
-  .work-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.1rem 1.25rem;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
-  }
-  .work-card:hover {
-    box-shadow: var(--shadow-lift);
-    transform: translateY(-1px);
-    border-color: var(--border-strong);
-  }
-  .work-card h3 {
-    margin: 0 0 0.6rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-  .work-card h3 a { color: var(--ink); }
-  .work-card h3 a:hover { color: var(--accent); text-decoration: none; }
-  .work-card h3 .ext {
-    display: inline-block;
-    color: var(--soft);
-    font-weight: 400;
-    margin-left: 0.3rem;
-    transition: color 0.18s, transform 0.18s;
-  }
-  .work-card:hover h3 .ext { color: var(--accent); transform: translate(2px, -2px); }
-  .badges { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0 0 0.7rem; }
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    background: var(--badge-bg);
-    border: 1px solid var(--border-soft);
-    border-radius: 5px;
-    font-size: 0.72rem;
-    color: var(--badge-fg);
-    font-weight: 500;
-    letter-spacing: 0.005em;
-  }
-  .work-card p { margin: 0 0 0.6rem; color: var(--strong); font-size: 0.9rem; line-height: 1.55; }
-  .work-card .links {
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin: 0.5rem 0 0;
-    display: flex; gap: 0.85rem;
-  }
-  .work-card .links a {
-    display: inline-flex; align-items: center; gap: 0.2rem;
-    color: var(--muted);
-  }
-  .work-card .links a:hover { color: var(--accent); text-decoration: none; }
-  .work-card .links a::after { content: "↗"; font-size: 0.85em; opacity: 0.7; }
-
-  /* timeline */
-  .timeline { margin: 0; padding: 0; list-style: none; }
-  .timeline-item {
-    position: relative;
-    padding: 0 0 1.5rem 1.75rem;
-    border-left: 1px solid var(--border);
-    margin-left: 0.4rem;
-  }
-  .timeline-item::before {
-    content: "";
-    position: absolute;
-    left: -5px; top: 4px;
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--soft);
-    box-sizing: border-box;
-  }
-  .timeline-item.current::before {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
-  }
-  .timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
-  .timeline-item .date {
-    font-size: 0.72rem;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    margin: 0 0 0.2rem;
-    font-weight: 500;
-  }
-  .timeline-item h3.title { font-weight: 600; margin: 0 0 0.05rem; font-size: 0.95rem; color: var(--ink); }
-  .timeline-item .org { color: var(--muted); margin: 0 0 0.4rem; font-size: 0.85rem; }
-  .timeline-item ul { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--strong); font-size: 0.88rem; }
-  .timeline-item li { margin-bottom: 0.2rem; }
-  .timeline-item li::marker { color: var(--soft); }
-
-  /* skills */
-  .skill-groups { display: grid; gap: 0.85rem; }
-  .skill-group {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 1rem;
-    align-items: start;
-  }
-  .skill-group .key {
-    font-size: 0.78rem;
-    color: var(--muted);
-    font-weight: 500;
-    padding-top: 0.2rem;
-  }
-  .skill-group .pills { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-
-  /* footer */
-  footer.contact {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-size: 0.85rem;
-  }
-  footer.contact a {
-    color: var(--muted);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-  footer.contact a:hover { color: var(--accent); text-decoration: none; }
-  footer.contact a::after { content: "↗"; opacity: 0.55; font-size: 0.9em; }
-  footer.contact a[href^="mailto:"]::after { content: ""; }
-
-  @media (max-width: 560px) {
-    main { padding: 3rem 1.25rem 4rem; }
-    .skill-group { grid-template-columns: 1fr; gap: 0.3rem; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      transition-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
-    }
-    .work-card:hover { transform: none; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#101917">
+  <meta name="description" content="Alexander Brittain — software engineer and technical lead. AI Engineer at U.S. Treasury and creator of SpeechKit for Obsidian.">
+  <title>Alexander Brittain — Software Engineer &amp; Technical Lead</title>
+  <link rel="canonical" href="https://alexanderbrittain.com/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Alexander Brittain — Software Engineer &amp; Technical Lead">
+  <meta property="og:description" content="End-to-end product ownership, AI-native execution, and secure software delivery.">
+  <meta property="og:url" content="https://alexanderbrittain.com/">
+  <meta property="og:image" content="https://alexanderbrittain.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Alexander Brittain — Software Engineer &amp; Technical Lead">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="style.css?v=20260919">
+  <link rel="stylesheet" href="workbench.css?v=20260919">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+    } catch (_) {}
+  </script>
+  <script src="app.js" defer></script>
 </head>
-<body>
-<button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-  <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-</button>
-<main>
-  <header class="intro">
-    <picture>
-      <source type="image/avif" srcset="portrait-112.avif 1x, portrait-224.avif 2x, portrait-336.avif 3x">
-      <source type="image/webp" srcset="portrait-112.webp 1x, portrait-224.webp 2x, portrait-336.webp 3x">
-      <img src="portrait-112.jpg" srcset="portrait-112.jpg 1x, portrait-224.jpg 2x, portrait-336.jpg 3x"
-           width="64" height="64" alt="Alexander Brittain" class="portrait" fetchpriority="high" decoding="async">
-    </picture>
-    <div>
-      <h1>Alexander Brittain</h1>
-      <p class="role"><span class="dot"></span>Software Engineer at U.S. Dept. of the Treasury</p>
-    </div>
-  </header>
-
-  <p class="bio">Previously at PoolCorp, modernizing legacy HR and warehouse systems with .NET, Blazor, and Azure.</p>
-
-  <section>
-    <h2>Selected work</h2>
-    <div class="work">
-      <article class="work-card">
-        <h3><a href="https://community.obsidian.md/plugins/local-dictation">Local Dictation for Obsidian<span class="ext">↗</span></a></h3>
-        <div class="badges">
-          <span class="badge">TypeScript</span><span class="badge">Rust</span><span class="badge">Whisper</span><span class="badge">Cohere</span><span class="badge">Silero VAD</span><span class="badge">CUDA</span><span class="badge">Metal</span>
+<body class="technical">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <header>
+      <a class="brand" href="./" aria-label="Alexander Brittain"><span class="brand-mark" aria-hidden="true">AB</span><span class="brand-name">Alexander Brittain</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch theme" title="Switch theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.25A8.5 8.5 0 0 1 8.75 3.5 8.5 8.5 0 1 0 20.5 15.25Z"/></svg>
+        </button>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div>
+          <div class="label">Software engineer &amp; technical lead</div>
+          <h1>I build software<br>that people<br><span>can count on.</span></h1>
+          <p class="intro">I'm Alex, a software engineer and technical lead at the U.S. Department of the Treasury. I own delivery of AI-integrated applications, from architecture to deployment. I also created SpeechKit, an open-source speech and language toolkit for Obsidian.</p>
+          <div class="actions">
+            <a class="button" href="#work">See my work ↓</a>
+            <a class="link" href="mailto:alexbrittain9@gmail.com">Get in touch ↗</a>
+          </div>
         </div>
-        <p>Privacy-first dictation plugin for Obsidian. TypeScript plugin shell drives a native Rust sidecar that runs Whisper and Cohere Transcribe locally, with Silero VAD for speech segmentation and optional Ollama post-processing. Hardware-accelerated on Metal (macOS) and CUDA (Linux/Windows). No cloud, no telemetry, no account.</p>
-        <p class="links"><a href="https://community.obsidian.md/plugins/local-dictation">Obsidian</a><a href="https://github.com/brittain9/local-dictation-obsidian-plugin">GitHub</a></p>
-      </article>
-      <article class="work-card">
-        <h3><a href="https://quiz.alexanderbrittain.com">Wiki Quiz<span class="ext">↗</span></a></h3>
-        <div class="badges">
-          <span class="badge">.NET 9</span><span class="badge">React</span><span class="badge">Azure Cosmos DB</span><span class="badge">OpenAI</span><span class="badge">Pulumi IaC</span>
+        <div class="demo">
+          <div class="demo-top mono"><span>SPEECHKIT</span><span>INSIDE OBSIDIAN</span></div>
+          <div class="note" aria-live="polite">
+            <h4>Live dictation in your note</h4>
+            <p class="sample">Start with the smallest useful version. We can learn from it, then make the next decision.</p>
+            <p class="result">Streaming words appear, revise in place, and land as Markdown at your cursor.</p>
+          </div>
+          <div class="steps" role="group" aria-label="Explore SpeechKit capabilities">
+            <button data-step="0" aria-pressed="true">Dictate</button>
+            <button data-step="1" aria-pressed="false">Translate</button>
+            <button data-step="2" aria-pressed="false">Listen</button>
+          </div>
+          <p class="disclaimer">A small illustration of the workflow. It does not process or play audio.</p>
         </div>
-        <p>Scale-to-zero Azure architecture that eliminates idle hosting costs. Integrates OpenAI with Microsoft Semantic Kernel to generate quizzes from any Wikipedia article. React/TypeScript frontend with nine-language i18n and Google OAuth.</p>
-        <p class="links"><a href="https://quiz.alexanderbrittain.com">Live</a><a href="https://github.com/brittain9">GitHub</a></p>
-      </article>
-    </div>
-  </section>
-
-  <section>
-    <h2>Experience &amp; education</h2>
-    <ul class="timeline">
-      <li class="timeline-item current">
-        <p class="date">2026 — Present</p>
-        <h3 class="title">Software Engineer</h3>
-        <p class="org">U.S. Department of the Treasury · Tech Force</p>
-      </li>
-      <li class="timeline-item">
-        <p class="date">2025 — 2026</p>
-        <h3 class="title">Junior Software Engineer</h3>
-        <p class="org">PoolCorp</p>
-        <ul>
-          <li>Led Blazor WebAssembly + Azure APIM modernization of a warehouse queue system used by 450+ sales centers.</li>
-          <li>Built a CQRS/MediatR Web API that automated a critical data import, recouping 15 hours/week for four engineers.</li>
-          <li>Sole maintainer of the legacy HR ecosystem — OMS, PortalSearch, and the Workday → HR sync pipeline on Azure Functions.</li>
-          <li>Shipped a secure Entity Framework admin dashboard that reduced HR data correction time by 80%.</li>
-        </ul>
-      </li>
-      <li class="timeline-item">
-        <p class="date">2024</p>
-        <h3 class="title">BBA, Management Information Systems</h3>
-        <p class="org">The University of Texas at Austin</p>
-      </li>
-      <li class="timeline-item">
-        <div class="badges" style="margin:0;">
-          <span class="badge">AZ-900</span><span class="badge">Eagle Scout</span>
+      </section>
+      <section id="work">
+        <div class="section-head"><h2>01 / OPEN-SOURCE WORK</h2><span class="label">Creator &amp; maintainer</span></div>
+        <article class="project">
+          <div>
+            <h3>SpeechKit</h3>
+            <p class="description">SpeechKit brings live dictation, meeting transcription, local translation, and natural read-aloud into the editor where people already keep their notes.</p>
+            <p class="description product-follow-on">I built it to replace a fragmented set of speech tools with one coherent workflow—one settings surface, one model manager, and one set of commands inside Obsidian.</p>
+            <div class="metrics">
+              <div><strong>~3,000</strong><span>plugin downloads</span></div>
+              <div><strong>20</strong><span>GitHub stars</span></div>
+              <div><strong>3</strong><span>desktop platforms</span></div>
+            </div>
+            <div class="actions">
+              <a class="button" href="https://github.com/brittain9/speech-kit-obsidian-plugin">View source ↗</a>
+              <a class="link" href="https://community.obsidian.md/plugins/local-dictation">Get SpeechKit ↗</a>
+            </div>
+          </div>
+          <div class="product-stack">
+            <div class="label stack-label">One workflow, deliberately connected</div>
+            <div class="stack-row"><strong>Live dictation</strong><span>Streaming words → Markdown</span></div>
+            <div class="stack-row"><strong>Meetings &amp; audio</strong><span>Transcripts, timestamps, speaker labels</span></div>
+            <div class="stack-row"><strong>Translation</strong><span>Preview before applying changes</span></div>
+            <div class="stack-row"><strong>Read-aloud</strong><span>Local voices and in-editor controls</span></div>
+            <p class="product-note">SpeechKit works locally once its models are installed—no account, telemetry, or required cloud service. Optional LLM tools stay separate and use only a provider the person chooses.</p>
+            <p class="product-note">Under the hood: a TypeScript Obsidian plugin, Rust native sidecar, and model support across macOS, Windows, and Linux.</p>
+          </div>
+        </article>
+      </section>
+      <section>
+        <div class="section-head"><h2>02 / EXPERIENCE</h2></div>
+        <article class="work-row">
+          <div><span class="label">May 2026 — Present</span><h3>U.S. Treasury</h3><p>AI Engineer / Technical Lead</p></div>
+          <div>
+            <h4>Leading end-to-end delivery of AI-integrated applications.</h4>
+            <p>As technical lead, I own product architecture, implementation, cloud infrastructure, and delivery. I work with division leadership to turn organizational priorities into secure, reliable software.</p>
+            <p class="follow-on">My scope spans product behavior and operational reliability, with responsibility for user experience, AI integration, security, and the systems behind the application.</p>
+            <details>
+              <summary>Architecture, reliability, and delivery</summary>
+              <p>I design API-first services and Terraform-managed infrastructure, with validated AI outputs, fault recovery, and safeguards against denial-of-service and model-cost abuse.</p>
+              <p>As part of a service rebuild, I reduced CI test feedback from roughly 40 minutes to two, introduced continuous deployment, and remediated critical and high-severity infrastructure and dependency findings.</p>
+            </details>
+            <div class="tag">Terraform · AI integration · API security · CI/CD</div>
+          </div>
+        </article>
+        <article class="work-row">
+          <div><span class="label">Jan 2025 — May 2026</span><h3>POOLCORP</h3><p>Junior Software Engineer</p></div>
+          <div>
+            <h4>Making everyday HR operations easier.</h4>
+            <p>I was the sole maintainer of core HR applications, responsible for releases, feature development, and Workday synchronization support.</p>
+            <p class="follow-on">A data-import API I built recovered approximately 15 hours per week across four team members. An administration dashboard replaced ad-hoc SQL corrections and reduced HR data-correction time by 80%.</p>
+            <div class="tag">.NET · Azure · SQL · Entity Framework</div>
+          </div>
+        </article>
+      </section>
+      <section class="approach">
+        <div><span class="label">03 / HOW I WORK</span><h2>Taking the time<br>to move faster.</h2></div>
+        <div class="working-copy">
+          <p>I use Codex and Claude Code extensively. The work I care most about is deciding what to build, keeping scope manageable, and checking that the pieces fit together.</p>
+          <p>Sometimes that means fixing a slow test pipeline before adding another feature. Sometimes it means working through how a system recovers when something fails. Those decisions make it easier to keep improving the product.</p>
         </div>
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Skills</h2>
-    <div class="skill-groups">
-      <div class="skill-group">
-        <span class="key">Languages</span>
-        <div class="pills"><span class="badge">C#</span><span class="badge">Python</span><span class="badge">TypeScript</span><span class="badge">JavaScript</span><span class="badge">SQL</span></div>
-      </div>
-      <div class="skill-group">
-        <span class="key">Frameworks</span>
-        <div class="pills"><span class="badge">.NET</span><span class="badge">ASP.NET Core</span><span class="badge">Blazor</span><span class="badge">React</span><span class="badge">Entity Framework</span></div>
-      </div>
-      <div class="skill-group">
-        <span class="key">Cloud</span>
-        <div class="pills"><span class="badge">Azure Functions</span><span class="badge">API Management</span><span class="badge">Container Apps</span><span class="badge">Docker</span><span class="badge">Pulumi IaC</span><span class="badge">CI/CD</span><span class="badge">Cloudflare</span></div>
-      </div>
-      <div class="skill-group">
-        <span class="key">Data</span>
-        <div class="pills"><span class="badge">SQL Server</span><span class="badge">PostgreSQL</span><span class="badge">Cosmos DB</span></div>
-      </div>
-      <div class="skill-group">
-        <span class="key">Tools</span>
-        <div class="pills"><span class="badge">Claude Code</span><span class="badge">Codex</span><span class="badge">MCP</span><span class="badge">Visual Studio</span></div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="contact">
-    <a href="mailto:alexbrittain9@gmail.com">alexbrittain9@gmail.com</a>
-    <a href="https://github.com/brittain9">GitHub</a>
-    <a href="https://linkedin.com/in/alexanderbrittain">LinkedIn</a>
-  </footer>
-</main>
-<script>
-(function(){
-  var btn=document.querySelector('.theme-toggle');
-  var mq=matchMedia('(prefers-color-scheme: dark)');
-  function isDark(){var c=document.documentElement.dataset.theme;return c==='dark'||(!c&&mq.matches);}
-  function sync(){btn.setAttribute('aria-pressed',String(isDark()));}
-  sync();
-  mq.addEventListener('change',sync);
-  btn.addEventListener('click',function(){var n=isDark()?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('theme',n);}catch(e){}sync();});
-})();
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Alexander Brittain",
-  "url": "https://alexanderbrittain.com",
-  "image": "https://alexanderbrittain.com/portrait-336.jpg",
-  "jobTitle": "Software Engineer",
-  "worksFor": { "@type": "Organization", "name": "U.S. Department of the Treasury" },
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "The University of Texas at Austin" },
-  "email": "alexbrittain9@gmail.com",
-  "sameAs": [
-    "https://github.com/brittain9",
-    "https://linkedin.com/in/alexanderbrittain"
-  ]
-}
-</script>
+      </section>
+      <section class="contact" id="contact">
+        <span class="label">GET IN TOUCH</span>
+        <h2>Let's talk.</h2>
+        <p>I'm interested in ambitious products, meaningful technical ownership, and working with people who care about what they build. If you're looking for an engineer who can shape a product, make pragmatic technical decisions, and carry it through delivery, let's talk.</p>
+        <div class="actions">
+          <a class="button" href="mailto:alexbrittain9@gmail.com">Email me ↗</a>
+          <a class="link" href="https://www.linkedin.com/in/alexanderbrittain/">LinkedIn ↗</a>
+          <a class="link" href="https://github.com/brittain9">GitHub ↗</a>
+        </div>
+      </section>
+    </main>
+    <footer class="foot"><span>Alexander Brittain</span><span>UT Austin · BBA MIS</span></footer>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alexander Brittain",
+    "url": "https://alexanderbrittain.com/",
+    "jobTitle": "Software Engineer and Technical Lead",
+    "description": "Software engineer with end-to-end product ownership. Technical lead at the U.S. Department of the Treasury and creator of SpeechKit.",
+    "worksFor": {"@type": "Organization", "name": "U.S. Department of the Treasury"},
+    "alumniOf": {"@type": "CollegeOrUniversity", "name": "The University of Texas at Austin"},
+    "email": "alexbrittain9@gmail.com",
+    "sameAs": ["https://github.com/brittain9", "https://www.linkedin.com/in/alexanderbrittain/"]
+  }
+  </script>
 </body>
 </html>
