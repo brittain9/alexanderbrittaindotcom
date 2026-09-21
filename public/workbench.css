@@ -10,6 +10,7 @@
 .work-art::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 58%,transparent),color-mix(in srgb,var(--bg) 68%,transparent) 30%,color-mix(in srgb,var(--bg) 94%,transparent) 43%,color-mix(in srgb,var(--bg) 88%,transparent));box-shadow:inset 0 14px 25px -20px var(--bg),inset 0 -14px 25px -20px var(--bg)}
 .work-row[data-art]>div:not(.work-art){position:relative}
 @media(hover:hover) and (pointer:fine){.work-row.art-active .work-art{opacity:1}}
+@media(hover:none),(pointer:coarse){.work-row.art-mobile-active .work-art{opacity:1}}
 @media(prefers-reduced-motion:reduce){.work-art{transition:none}}
 .technical{color-scheme:dark;--art-bleed:24px;--hero-dot-base:.19;--hero-dot-hover:.42;--hero-dot-radius:.8}
 :root{--light-bg:#d6dcdf;--light-ink:#202f35;--light-muted:#526168;--light-accent:#275e4d;--light-line:#b3bec3;--light-panel:#eef1f2;--light-glow:#cbd5d8;--light-dot:#4e6b6838;--light-button-hover:#1d493d}
@@ -52,7 +53,7 @@
 .technical .approach{position:relative;grid-template-columns:1fr 1.7fr;padding:24px 0 88px;border-top:0}
 .approach-runner{position:absolute;left:0;bottom:12px;width:100%;height:64px;pointer-events:none;image-rendering:pixelated;opacity:0;transition:opacity .25s ease}
 @media(hover:hover) and (pointer:fine){.approach.runner-active .approach-runner{opacity:1}}
-@media(hover:none),(pointer:coarse){.technical .approach{padding-bottom:48px}}
+@media(hover:none),(pointer:coarse){.technical .approach{padding-bottom:88px}.approach.runner-active .approach-runner{opacity:1}}
 @media(prefers-reduced-motion:reduce){.approach-runner{transition:none}}
 .technical .contact{padding-block:48px}
 .technical .work-row p,.working-copy p{line-height:1.85}

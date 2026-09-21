@@ -43,8 +43,12 @@ function installRunner() {
   if (!ctx) return;
   section.append(canvas);
   const pointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const touch = matchMedia('(hover: none), (pointer: coarse)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let hovered = false, visible = false, frame = 0, previous = 0, elapsed = 0;
+  const windupDuration = .48;
+  const runDuration = 1.5;
+  const resetDuration = .12;
+  let hovered = false, visible = false, mobileTriggered = false, mobileRunning = false, frame = 0, previous = 0, elapsed = 0;
   let ink = '';
 
   function shape(points) {
@@ -52,25 +56,69 @@ function installRunner() {
     points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));
     ctx.closePath(); ctx.fill();
   }
-  function leg(phase, back) {
+  function smooth(value) {
+    const t = Math.max(0, Math.min(1, value));
+    return t * t * (3 - 2 * t);
+  }
+  function leg(phase, back, spin) {
     const stride = Math.sin(phase);
     const lift = Math.max(0, Math.cos(phase));
-    const footX = 31 + stride * 10;
-    const footY = 28 - lift * 8;
+    const runX = 31 + stride * 10;
+    const runY = 28 - lift * 8;
+    const footX = runX + (30 + Math.cos(phase) * 9 - runX) * spin;
+    const footY = runY + (23 + Math.sin(phase) * 6 - runY) * spin;
     ctx.globalAlpha = back ? .65 : 1;
     ctx.lineWidth = 1.5;
-    ctx.beginPath();ctx.moveTo(29,18);ctx.lineTo(31 + stride * 3,23 - lift * 2);ctx.lineTo(footX,footY);ctx.lineTo(footX + 5,footY);ctx.stroke();
+    const kneeX = (29 + footX) / 2 + 2;
+    const kneeY = (18 + footY) / 2;
+    ctx.beginPath();ctx.moveTo(29,18);ctx.lineTo(kneeX,kneeY);ctx.lineTo(footX,footY);
+    ctx.lineTo(footX + 4 * (1 - spin) - Math.sin(phase) * 3 * spin,footY + Math.cos(phase) * 2 * spin);ctx.stroke();
     ctx.globalAlpha = 1;
   }
-  function paint(time) {
+  function revTrails(phase, strength) {
+    // Faint motion trails support the connected legs rather than replacing them.
+    ctx.lineWidth = .7;
+    ctx.globalAlpha = .24 * strength;
+    for (const offset of [0, Math.PI]) {
+      ctx.beginPath();
+      ctx.ellipse(30,23,10,6.5,0,phase + offset - .9,phase + offset);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+  function paint(time, loop = true) {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    const travel = reduced.matches ? .38 : (time / 3) % 1;
-    const x = travel * Math.max(0,canvas.width - 56);
-    const phase = reduced.matches ? .8 : time * 24;
-    const bob = reduced.matches ? 0 : Math.sin(phase * 2) * .6;
-    ctx.save();ctx.translate(Math.round(x),Math.round(bob));
+    const cycleTime = reduced.matches ? 0 : loop ? time % (windupDuration + runDuration + resetDuration) : time;
+    const revving = !reduced.matches && cycleTime < windupDuration;
+    const runTime = Math.max(0,cycleTime - windupDuration);
+    if (!reduced.matches && runTime >= runDuration) return false;
+    const progress = runTime / runDuration;
+    // Integrate a short acceleration, then keep the dash quick and even.
+    const ramp = .12;
+    const travel = reduced.matches ? .38 : progress < ramp
+      ? progress * progress / (2 * ramp * (1 - ramp / 2))
+      : (progress - ramp / 2) / (1 - ramp / 2);
+    const windup = cycleTime / windupDuration;
+    const spin = reduced.matches ? 0 : revving ? smooth(windup / .35) : 1 - smooth(runTime / .18);
+    const crouch = reduced.matches ? 0 : revving ? Math.sin(windup * Math.PI) : 0;
+    // Continuous phase avoids a leg-pose jump at launch; rotation builds in speed.
+    const revPhase = 16 * windupDuration + 24 * windupDuration;
+    const phase = reduced.matches ? .8 : revving
+      ? 16 * cycleTime + 24 * cycleTime * cycleTime / windupDuration
+      : revPhase + 24 * runTime + 4 * (1 - Math.exp(-runTime * 10));
+    const x = reduced.matches ? travel * Math.max(0,canvas.width - 56)
+      : 5 + travel * (canvas.width + 3) - crouch * 2;
+    const bob = reduced.matches ? 0 : (1 - spin) * Math.sin(phase * 2) * .45;
+    ctx.save();ctx.translate(x,1 + bob);
     ctx.fillStyle = ink;ctx.strokeStyle = ink;
-    leg(phase + Math.PI,true);
+    if (spin > 0) revTrails(phase,spin);
+    leg(phase + Math.PI,true,spin);
+    ctx.save();
+    ctx.translate(29,18);
+    const lean = reduced.matches ? 0 : revving ? -.035 * crouch : .06 * (1 - smooth(runTime / .3));
+    ctx.rotate(lean);
+    ctx.scale(1 + crouch * .035,1 - crouch * .09);
+    ctx.translate(-29,-18);
     // Long tail, forward-leaning body, arched neck, pointed beak and crest.
     shape([[24,17],[2,8],[5,7],[23,11],[5,4],[10,4],[29,12]]);
     ctx.beginPath();ctx.ellipse(28,15,9,5,-.2,0,Math.PI*2);ctx.fill();
@@ -78,32 +126,69 @@ function installRunner() {
     ctx.beginPath();ctx.ellipse(40,6,5,3.5,0,0,Math.PI*2);ctx.fill();
     shape([[43,5],[54,7],[43,8]]);
     shape([[37,5],[29,1],[37,2],[32,0],[40,2],[37,0],[43,3],[42,5]]);
-    leg(phase,false);
     // Cutouts stay transparent so both site themes use the same silhouette.
     ctx.globalCompositeOperation = 'destination-out';
     ctx.fillRect(41,5,1,1);
     ctx.lineWidth = .7;ctx.beginPath();ctx.moveTo(24,14);ctx.quadraticCurveTo(29,17,33,13);ctx.stroke();
     ctx.restore();
+    leg(phase,false,spin);
+    ctx.restore();
+    return true;
   }
   function tick(now) {
     elapsed += Math.min(40,now - previous) / 1000;previous = now;
     paint(elapsed);frame = requestAnimationFrame(tick);
   }
+  function mobileTick(now) {
+    elapsed += Math.min(40,now - previous) / 1000;previous = now;
+    if (paint(elapsed,false)) frame = requestAnimationFrame(mobileTick);
+    else { mobileRunning = false; sync(); }
+  }
   function sync() {
     cancelAnimationFrame(frame);frame = 0;
-    const active = hovered && visible && pointer.matches && !document.hidden;
+    const desktopActive = hovered && visible && pointer.matches;
+    const mobileActive = touch.matches && visible && mobileTriggered && (mobileRunning || reduced.matches);
+    const active = (desktopActive || mobileActive) && !document.hidden;
     section.classList.toggle('runner-active',active);
     if (!active) return;
     ink = getComputedStyle(section).getPropertyValue('--ink').trim();
-    paint(elapsed);
-    if (!reduced.matches) { previous = performance.now();frame = requestAnimationFrame(tick); }
+    if (touch.matches) {
+      paint(reduced.matches ? 0 : elapsed,false);
+      if (mobileRunning && !reduced.matches) { previous = performance.now();frame = requestAnimationFrame(mobileTick); }
+    } else {
+      paint(elapsed);
+      if (!reduced.matches) { previous = performance.now();frame = requestAnimationFrame(tick); }
+    }
   }
   new ResizeObserver(() => {canvas.width = Math.max(56,Math.round(section.clientWidth / 2));canvas.height = 32;sync();}).observe(section);
-  new IntersectionObserver(([entry]) => {visible = entry.isIntersecting;sync();}).observe(section);
-  section.addEventListener('pointerenter',event => {hovered = event.pointerType !== 'touch';sync();});
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (touch.matches) {
+      if (!visible) { mobileTriggered = false; mobileRunning = false; elapsed = 0; }
+      else if (entry.intersectionRatio >= .35 && !mobileTriggered) {
+        mobileTriggered = true;
+        if (!reduced.matches) { mobileRunning = true; elapsed = 0; }
+      }
+    }
+    sync();
+  }, {threshold:[0,.35]}).observe(section);
+  section.addEventListener('pointerenter',event => {
+    hovered = event.pointerType !== 'touch';
+    if (hovered) elapsed = 0;
+    sync();
+  });
   section.addEventListener('pointerleave',() => {hovered = false;sync();});
   pointer.addEventListener('change',() => {hovered = false;sync();});
-  reduced.addEventListener('change',sync);
+  touch.addEventListener('change',() => {
+    if (touch.matches && visible) { mobileTriggered = true; if (!reduced.matches) { mobileRunning = true; elapsed = 0; } }
+    else { mobileTriggered = false; mobileRunning = false; }
+    sync();
+  });
+  reduced.addEventListener('change',() => {
+    if (reduced.matches) mobileRunning = false;
+    else if (touch.matches && visible && mobileTriggered) { mobileRunning = true; elapsed = 0; }
+    sync();
+  });
   document.addEventListener('visibilitychange',sync);
   new MutationObserver(sync).observe(root,{attributes:true,attributeFilter:['data-theme']});
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',sync);
@@ -111,7 +196,9 @@ function installRunner() {
 installRunner();
 // Render at one pixel per three CSS pixels: sharp pixel art with very little work.
 const artPointer = matchMedia('(hover: hover) and (pointer: fine)');
+const artTouch = matchMedia('(hover: none), (pointer: coarse)');
 const artReducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const mobileArtDuration = 1700;
 
 document.querySelectorAll('[data-art]').forEach((row) => {
   const layer = document.createElement('div');
@@ -126,6 +213,8 @@ document.querySelectorAll('[data-art]').forEach((row) => {
   let visible = false;
   let frame = 0;
   let lastPaint = -Infinity;
+  let mobileStart = 0;
+  let mobileRevealed = false;
 
   let renderArtwork;
   function draw(time) {
@@ -139,15 +228,32 @@ document.querySelectorAll('[data-art]').forEach((row) => {
     }
     frame = requestAnimationFrame(tick);
   }
+  function mobileTick(now) {
+    if (now - lastPaint >= 1000 / 30) {
+      draw((now - mobileStart) / 1000);
+      lastPaint = now;
+    }
+    if (now - mobileStart < mobileArtDuration) frame = requestAnimationFrame(mobileTick);
+  }
 
   function sync() {
     cancelAnimationFrame(frame);
     frame = 0;
-    const active = hovered && visible && artPointer.matches && !document.hidden;
-    row.classList.toggle('art-active', active);
+    const desktopActive = hovered && visible && artPointer.matches;
+    const mobileActive = artTouch.matches && visible && mobileRevealed;
+    const active = (desktopActive || mobileActive) && !document.hidden;
+    row.classList.toggle('art-active', desktopActive && !document.hidden);
+    row.classList.toggle('art-mobile-active', mobileActive && !document.hidden);
     if (!active) return;
-    draw(artReducedMotion.matches ? 0 : performance.now() / 1000);
-    if (!artReducedMotion.matches) frame = requestAnimationFrame(tick);
+    if (mobileActive) {
+      if (!mobileStart) mobileStart = performance.now();
+      draw(artReducedMotion.matches ? 0 : (performance.now() - mobileStart) / 1000);
+      lastPaint = performance.now();
+      if (!artReducedMotion.matches && performance.now() - mobileStart < mobileArtDuration) frame = requestAnimationFrame(mobileTick);
+    } else {
+      draw(artReducedMotion.matches ? 0 : performance.now() / 1000);
+      if (!artReducedMotion.matches) frame = requestAnimationFrame(tick);
+    }
   }
 
   new ResizeObserver(() => {
@@ -156,10 +262,18 @@ document.querySelectorAll('[data-art]').forEach((row) => {
     renderArtwork = createExperienceArtwork(row.dataset.art, canvas.width, canvas.height);
     sync();
   }).observe(row);
-  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }).observe(row);
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (artTouch.matches) {
+      if (!visible) { mobileRevealed = false; mobileStart = 0; }
+      else if (entry.intersectionRatio >= .35 && !mobileRevealed) { mobileRevealed = true; mobileStart = performance.now(); lastPaint = -Infinity; }
+    }
+    sync();
+  }, {threshold:[0,.35]}).observe(row);
   row.addEventListener('pointerenter', (event) => { hovered = event.pointerType !== 'touch'; sync(); });
   row.addEventListener('pointerleave', () => { hovered = false; sync(); });
   artPointer.addEventListener('change', () => { hovered = false; sync(); });
+  artTouch.addEventListener('change', () => { mobileRevealed = visible && artTouch.matches; mobileStart = mobileRevealed ? performance.now() : 0; lastPaint = -Infinity; sync(); });
   artReducedMotion.addEventListener('change', sync);
   document.addEventListener('visibilitychange', sync);
 });
