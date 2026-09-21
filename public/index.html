@@ -22,14 +22,15 @@
   <meta property="og:image:alt" content="Alexander Brittain — Software Engineer &amp; Technical Lead">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css?v=20260919">
-  <link rel="stylesheet" href="workbench.css?v=20260919">
+  <link rel="stylesheet" href="workbench.css?v=20260920h">
   <script>
     try {
       const savedTheme = localStorage.getItem('portfolio-theme');
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (_) {}
   </script>
-  <script src="app.js" defer></script>
+  <script src="experience-art.js?v=20260920c" defer></script>
+  <script src="app.js?v=20260920h" defer></script>
 </head>
 <body class="technical">
   <a class="skip" href="#main">Skip to content</a>
@@ -49,37 +50,23 @@
       <section class="hero">
         <div>
           <div class="label">Software engineer &amp; technical lead</div>
-          <h1>I build software<br>that people<br><span>can count on.</span></h1>
-          <p class="intro">I'm Alex, a software engineer and technical lead at the U.S. Department of the Treasury. I own delivery of AI-integrated applications, from architecture to deployment. I also created SpeechKit, an open-source speech and language toolkit for Obsidian.</p>
+          <h1>I build software<br><span>that people can count on.</span></h1>
+          <p class="intro">I'm Alex, a software engineer and technical lead at the U.S. Department of the Treasury. I build AI-integrated applications from architecture through deployment, and maintain <a href="#speechkit">SpeechKit</a>, an open-source speech and language toolkit for Obsidian.</p>
           <div class="actions">
             <a class="button" href="#work">See my work ↓</a>
             <a class="link" href="mailto:alexbrittain9@gmail.com">Get in touch ↗</a>
           </div>
         </div>
-        <div class="demo">
-          <div class="demo-top mono"><span>SPEECHKIT</span><span>INSIDE OBSIDIAN</span></div>
-          <div class="note" aria-live="polite">
-            <h4>Live dictation in your note</h4>
-            <p class="sample">Start with the smallest useful version. We can learn from it, then make the next decision.</p>
-            <p class="result">Streaming words appear, revise in place, and land as Markdown at your cursor.</p>
-          </div>
-          <div class="steps" role="group" aria-label="Explore SpeechKit capabilities">
-            <button data-step="0" aria-pressed="true">Dictate</button>
-            <button data-step="1" aria-pressed="false">Translate</button>
-            <button data-step="2" aria-pressed="false">Listen</button>
-          </div>
-          <p class="disclaimer">A small illustration of the workflow. It does not process or play audio.</p>
-        </div>
       </section>
       <section id="work">
         <div class="section-head"><h2>01 / OPEN-SOURCE WORK</h2><span class="label">Creator &amp; maintainer</span></div>
-        <article class="project">
+        <article class="project" id="speechkit">
           <div>
             <h3>SpeechKit</h3>
             <p class="description">SpeechKit brings live dictation, meeting transcription, local translation, and natural read-aloud into the editor where people already keep their notes.</p>
-            <p class="description product-follow-on">I built it to replace a fragmented set of speech tools with one coherent workflow—one settings surface, one model manager, and one set of commands inside Obsidian.</p>
+            <p class="description product-follow-on">I built SpeechKit so recording, transcribing, translating, and listening could happen in one place—with shared controls and model management inside Obsidian.</p>
             <div class="metrics">
-              <div><strong>~3,000</strong><span>plugin downloads</span></div>
+              <div><strong>~4,000</strong><span>plugin downloads</span></div>
               <div><strong>20</strong><span>GitHub stars</span></div>
               <div><strong>3</strong><span>desktop platforms</span></div>
             </div>
@@ -90,10 +77,34 @@
           </div>
           <div class="product-stack">
             <div class="label stack-label">One workflow, deliberately connected</div>
-            <div class="stack-row"><strong>Live dictation</strong><span>Streaming words → Markdown</span></div>
-            <div class="stack-row"><strong>Meetings &amp; audio</strong><span>Transcripts, timestamps, speaker labels</span></div>
-            <div class="stack-row"><strong>Translation</strong><span>Preview before applying changes</span></div>
-            <div class="stack-row"><strong>Read-aloud</strong><span>Local voices and in-editor controls</span></div>
+            <div class="feature-examples" aria-label="SpeechKit workflow examples">
+              <details class="feature-example">
+                <summary><strong>Meetings &amp; audio</strong><span>Speakers and timestamps</span></summary>
+                <div class="feature-preview">
+                  <span class="label">Illustrative example · transcript</span>
+                  <p><span class="transcript-speaker">00:12 · Speaker 1</span>Can we simplify the setup without removing the advanced options?</p>
+                  <p><span class="transcript-speaker">00:18 · Speaker 2</span>Yes. Let's make the recommended path clear first.</p>
+                </div>
+              </details>
+              <details class="feature-example">
+                <summary><strong>Translation</strong><span>Review before applying</span></summary>
+                <div class="feature-preview">
+                  <span class="label">Illustrative example · English → Spanish</span>
+                  <p lang="en">Let's make the next step easier.</p>
+                  <p class="translation-result" lang="es">Hagamos que el siguiente paso sea más sencillo.</p>
+                </div>
+              </details>
+              <details class="feature-example">
+                <summary><strong>Read-aloud</strong><span>Listen without leaving your notes</span></summary>
+                <div class="feature-preview">
+                  <span class="label">Illustrative example · no audio playback</span>
+                  <p>Listen to a note while reviewing your work.</p>
+                  <div class="playback-illustration" role="img" aria-label="Playback controls illustration: paused at 12 seconds of a 48-second note, playback speed 1 times">
+                    <span aria-hidden="true">▶</span><span class="playback-track" aria-hidden="true"></span><span aria-hidden="true">0:12 / 0:48 · 1×</span>
+                  </div>
+                </div>
+              </details>
+            </div>
             <p class="product-note">SpeechKit works locally once its models are installed—no account, telemetry, or required cloud service. Optional LLM tools stay separate and use only a provider the person chooses.</p>
             <p class="product-note">Under the hood: a TypeScript Obsidian plugin, Rust native sidecar, and model support across macOS, Windows, and Linux.</p>
           </div>
@@ -101,21 +112,21 @@
       </section>
       <section>
         <div class="section-head"><h2>02 / EXPERIENCE</h2></div>
-        <article class="work-row">
+        <article class="work-row" data-art="flag">
           <div><span class="label">May 2026 — Present</span><h3>U.S. Treasury</h3><p>AI Engineer / Technical Lead</p></div>
           <div>
             <h4>Leading end-to-end delivery of AI-integrated applications.</h4>
             <p>As technical lead, I own product architecture, implementation, cloud infrastructure, and delivery. I work with division leadership to turn organizational priorities into secure, reliable software.</p>
-            <p class="follow-on">My scope spans product behavior and operational reliability, with responsibility for user experience, AI integration, security, and the systems behind the application.</p>
+            <p class="follow-on">Re-architected a brittle service, shortened automated test feedback from roughly 40 minutes to two, and introduced continuous deployment.</p>
             <details>
               <summary>Architecture, reliability, and delivery</summary>
               <p>I design API-first services and Terraform-managed infrastructure, with validated AI outputs, fault recovery, and safeguards against denial-of-service and model-cost abuse.</p>
-              <p>As part of a service rebuild, I reduced CI test feedback from roughly 40 minutes to two, introduced continuous deployment, and remediated critical and high-severity infrastructure and dependency findings.</p>
+              <p>I also remediated critical and high-severity infrastructure and dependency findings as part of the rebuild.</p>
             </details>
             <div class="tag">Terraform · AI integration · API security · CI/CD</div>
           </div>
         </article>
-        <article class="work-row">
+        <article class="work-row" data-art="pool">
           <div><span class="label">Jan 2025 — May 2026</span><h3>POOLCORP</h3><p>Junior Software Engineer</p></div>
           <div>
             <h4>Making everyday HR operations easier.</h4>
@@ -125,22 +136,27 @@
           </div>
         </article>
       </section>
-      <section class="approach">
-        <div><span class="label">03 / HOW I WORK</span><h2>Taking the time<br>to move faster.</h2></div>
+      <section aria-labelledby="approach-heading">
+        <div class="section-head"><h2 id="approach-heading">03 / HOW I WORK</h2></div>
+        <div class="approach">
+        <div><h3>Strong fundamentals.<br>Faster delivery.</h3></div>
         <div class="working-copy">
-          <p>I use Codex and Claude Code extensively. The work I care most about is deciding what to build, keeping scope manageable, and checking that the pieces fit together.</p>
-          <p>Sometimes that means fixing a slow test pipeline before adding another feature. Sometimes it means working through how a system recovers when something fails. Those decisions make it easier to keep improving the product.</p>
+          <p>I define what the product should do, how it should behave when things go wrong, and what doesn't belong in scope. Then I use Codex and Claude Code to accelerate implementation—and review the result as a complete system.</p>
+          <p>I keep that speed sustainable with reliable tests, straightforward deployment, and systems that are easy to understand and change. Review stays proportionate to the risk.</p>
+        </div>
         </div>
       </section>
       <section class="contact" id="contact">
         <span class="label">GET IN TOUCH</span>
         <h2>Let's talk.</h2>
-        <p>I'm interested in ambitious products, meaningful technical ownership, and working with people who care about what they build. If you're looking for an engineer who can shape a product, make pragmatic technical decisions, and carry it through delivery, let's talk.</p>
+        <p>Have a product worth building? I'm interested in meaningful technical ownership and working with people who care about what they make.</p>
         <div class="actions">
           <a class="button" href="mailto:alexbrittain9@gmail.com">Email me ↗</a>
+          <button class="copy-email link" type="button" hidden>Copy email</button>
           <a class="link" href="https://www.linkedin.com/in/alexanderbrittain/">LinkedIn ↗</a>
           <a class="link" href="https://github.com/brittain9">GitHub ↗</a>
         </div>
+        <p class="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
     </main>
     <footer class="foot"><span>Alexander Brittain</span><span>UT Austin · BBA MIS</span></footer>

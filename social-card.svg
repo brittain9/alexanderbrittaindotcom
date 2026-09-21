@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#101917"/>
+  <defs><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="1" fill="#d1ed79" opacity=".14"/></pattern></defs>
+  <rect x="40" y="40" width="1120" height="550" fill="url(#dots)" stroke="#33413a"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="80" y="80" width="48" height="48" fill="#101917" stroke="#d1ed79"/>
+    <text x="104" y="111" text-anchor="middle" font-size="20" font-weight="700" fill="#d1ed79">AB</text>
+    <text x="148" y="112" font-size="25" font-weight="600" fill="#edf1df">Alexander Brittain</text>
+    <text x="80" y="246" font-size="24" fill="#a0afa3">Software engineer &amp; technical lead</text>
+    <text x="80" y="330" font-size="62" font-weight="600" letter-spacing="-2" fill="#edf1df">I build software</text>
+    <text x="80" y="405" font-size="62" font-weight="600" letter-spacing="-2" fill="#d1ed79">that people can count on.</text>
+    <text x="80" y="527" font-size="22" fill="#a0afa3">alexanderbrittain.com</text>
+  </g>
+</svg>
