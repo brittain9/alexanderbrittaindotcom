@@ -23,6 +23,18 @@
 :root[data-theme=light] .technical .demo{background:var(--panel);box-shadow:10px 10px 0 #19392e10}
 :root[data-theme=light] .technical .hero{background-image:radial-gradient(var(--light-dot) .8px,transparent .8px)}
 :root[data-theme=light] .technical .button:hover{background:var(--light-button-hover);color:var(--panel)}
+.ut-toggle{appearance:none;color:inherit;font:inherit;letter-spacing:inherit;background:transparent;border:0;padding:0;min-height:44px;cursor:pointer}
+.ut-toggle:hover{color:var(--accent)}
+.ut-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px}
+:root[data-theme=orange] .technical{color-scheme:dark;--bg:#bf5700;--ink:#fffdfa;--muted:#fffdfa;--accent:#fffdfa;--line:#d68c50;--panel:#963f00;--glow:#df7625;--art-saturation:1.35;--art-contrast:1.08;--hero-dot-base:.25;--hero-dot-hover:.5;--hero-dot-radius:.85}
+:root[data-theme=orange] .technical .demo{background:var(--panel);box-shadow:10px 10px 0 #71300060}
+:root[data-theme=orange] .technical .hero{background-image:radial-gradient(#fff0d233 .8px,transparent .8px)}
+:root[data-theme=orange] .technical .button{background:#fff0d2;color:#963f00}
+:root[data-theme=orange] .technical .button:hover{background:#ffe2b3;color:#843900}
+:root[data-theme=orange] .technical .button:focus-visible,:root[data-theme=orange] .technical a:focus-visible,:root[data-theme=orange] .technical button:focus-visible,:root[data-theme=orange] .technical summary:focus-visible{outline-color:var(--accent)}
+:root[data-theme=orange] .technical .demo::before{opacity:.45}
+:root[data-theme=orange] .technical .feature-example[open] summary,:root[data-theme=orange] .technical .feature-preview{background:#a94900}
+:root[data-theme=orange] .technical .translation-result{border-left-color:var(--accent)}
 .theme-toggle{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);padding:0;cursor:pointer}
 .theme-toggle svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .theme-toggle .icon-moon{display:none}

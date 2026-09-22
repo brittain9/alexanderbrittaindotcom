@@ -279,18 +279,33 @@ document.querySelectorAll('[data-art]').forEach((row) => {
 });
 
 const themeButton = document.querySelector('.theme-toggle');
+const longhornButton = document.querySelector('.ut-toggle');
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+let previousTheme = null;
+let previousThemeWasExplicit = false;
 
 function getTheme() {
   return root.dataset.theme || (systemTheme.matches ? 'dark' : 'light');
 }
 
 function renderTheme(theme) {
-  themeColor.content = theme === 'light' ? '#d6dcdf' : '#101917';
-  themeButton.setAttribute('aria-pressed', String(theme === 'light'));
-  themeButton.setAttribute('aria-label', theme === 'light' ? 'Light theme enabled. Switch to dark theme' : 'Dark theme enabled. Switch to light theme');
-  themeButton.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+  const orange = theme === 'orange';
+  const normalTheme = orange ? previousTheme || (systemTheme.matches ? 'dark' : 'light') : theme;
+  const nextTheme = normalTheme === 'light' ? 'dark' : 'light';
+  themeColor.content = orange ? '#BF5700' : theme === 'light' ? '#d6dcdf' : '#101917';
+  themeButton.setAttribute('aria-pressed', String(!orange && theme === 'light'));
+  themeButton.setAttribute('aria-label', orange
+    ? `Burnt orange theme enabled. Switch to ${nextTheme} theme`
+    : `${theme === 'light' ? 'Light' : 'Dark'} theme enabled. Switch to ${nextTheme} theme`);
+  themeButton.title = `Switch to ${nextTheme} mode`;
+  if (longhornButton) {
+    longhornButton.setAttribute('aria-pressed', String(orange));
+    longhornButton.setAttribute('aria-label', orange
+      ? 'Burnt orange UT Austin BBA MIS theme enabled. Restore the previous theme'
+      : 'Switch to the burnt orange UT Austin BBA MIS theme');
+    longhornButton.title = orange ? 'Restore the previous theme' : 'Switch to the burnt orange theme';
+  }
 }
 
 function setTheme(theme, persist) {
@@ -305,13 +320,39 @@ function setTheme(theme, persist) {
 
 if (themeButton) {
   renderTheme(getTheme());
-  themeButton.addEventListener('click', () => setTheme(getTheme() === 'light' ? 'dark' : 'light', true));
+  themeButton.addEventListener('click', () => {
+    const activeTheme = getTheme();
+    const normalTheme = activeTheme === 'orange' ? previousTheme || (systemTheme.matches ? 'dark' : 'light') : activeTheme;
+    setTheme(normalTheme === 'light' ? 'dark' : 'light', true);
+    previousTheme = null;
+  });
   systemTheme.addEventListener('change', () => {
     try {
-      if (!localStorage.getItem('portfolio-theme')) renderTheme(getTheme());
+      if (!localStorage.getItem('portfolio-theme') && getTheme() !== 'orange') renderTheme(getTheme());
     } catch (_) {
-      renderTheme(getTheme());
+      if (getTheme() !== 'orange') renderTheme(getTheme());
     }
+  });
+}
+
+if (longhornButton && themeButton) {
+  longhornButton.addEventListener('click', () => {
+    if (getTheme() === 'orange') {
+      const restoreTheme = previousTheme || (systemTheme.matches ? 'dark' : 'light');
+      if (previousThemeWasExplicit) {
+        setTheme(restoreTheme, false);
+      } else {
+        delete root.dataset.theme;
+        renderTheme(getTheme());
+      }
+      previousTheme = null;
+      previousThemeWasExplicit = false;
+      return;
+    }
+
+    previousTheme = getTheme();
+    previousThemeWasExplicit = root.hasAttribute('data-theme');
+    setTheme('orange', false);
   });
 }
 
